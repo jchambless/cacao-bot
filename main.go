@@ -103,7 +103,7 @@ func commandHandler(discord *discordgo.Session, message *discordgo.MessageCreate
 
 func registerCommands() {
 	CmdHandler.Register("help", commands.HelpCommand, "Get help about this bots commands.")
-	CmdHandler.Register("banplayer", commands.BanPlayerCommand, "Ban a player from the Minecraft server.")
+	CmdHandler.Register("ban", commands.BanPlayerCommand, "Ban a player from the Minecraft server.")
 	CmdHandler.Register("banip", commands.BanIPCommand, "Ban a IP address from server.")
 	//CmdHandler.Register("banlist", commands.BanListCommand, "Displays the banlist.")
 	CmdHandler.Register("kick", commands.KickCommand, "Forcibly disconnects playername from the server, displaying an optional reason to them.")
@@ -111,4 +111,5 @@ func registerCommands() {
 	CmdHandler.Register("op", commands.OperatorCommand, "Grants playername operator status on the server.")
 	CmdHandler.Register("stop", commands.ShutdownCommand, "Gracefully shuts down the server.")
 	CmdHandler.Register("list", commands.PlayerListCommand, "Shows the names of all currently-connected players.")
+	CmdHandler.Register("pardon", commands.PardonPlayerCommand, "Removes player from the blacklist, allowing them to connect again.")
 }
