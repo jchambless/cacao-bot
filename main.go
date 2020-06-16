@@ -112,4 +112,5 @@ func registerCommands() {
 	CmdHandler.Register("stop", commands.ShutdownCommand, "Gracefully shuts down the server.")
 	CmdHandler.Register("list", commands.PlayerListCommand, "Shows the names of all currently-connected players.")
 	CmdHandler.Register("pardon", commands.PardonPlayerCommand, "Removes player from the blacklist, allowing them to connect again.")
+	CmdHandler.Register("ping", commands.PingCommand, "Checks if server is up and returns information regarding it.")
 }
