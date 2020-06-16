@@ -16,7 +16,7 @@ import (
 const NUM_FIELDS int = 6
 const DEFAULT_TIMEOUT int = 5
 
-type OnlineStatus struct {
+type ServerStatus struct {
 	Online         bool
 	Version        string
 	Motd           string
@@ -26,10 +26,10 @@ type OnlineStatus struct {
 }
 
 // Based on code from https://github.com/ldilley/minestat
-func MCServerChecker(ctx framework.Context) *OnlineStatus {
-	log.Printf("MCServerChecker called for %s", ctx.Conf.ServerIP)
+func ServerChecker(ctx framework.Context) *ServerStatus {
+	log.Printf("Minecraft ServerChecker called for %s", ctx.Conf.ServerIP)
 
-	status := OnlineStatus{}
+	status := ServerStatus{}
 	timeout := DEFAULT_TIMEOUT
 	start_time := time.Now()
 

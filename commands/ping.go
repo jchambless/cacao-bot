@@ -18,14 +18,14 @@ func PingCommand(ctx framework.Context) {
 		return
 	}
 
-	checker := util.MCServerChecker(ctx)
+	status := util.ServerChecker(ctx)
 	msg := fmt.Sprintf("**Server**: %s\n**Online**: No\n", ctx.Conf.ServerIP)
 
-	if checker.Online {
+	if status.Online {
 		msg = fmt.Sprintf("**Server**: %s\n**Online**: Yes\n**Version**: %s\n**Players**: %s out of %s players\n", ctx.Conf.ServerIP,
-			checker.Version, checker.CurrentPlayers, checker.MaxPlayers)
-		msg += fmt.Sprintf("**Message of the day**: %s\n", checker.Motd)
-		msg += fmt.Sprintf("**Latency**: %s\n", checker.Latency)
+			status.Version, status.CurrentPlayers, status.MaxPlayers)
+		msg += fmt.Sprintf("**Message of the day**: %s\n", status.Motd)
+		msg += fmt.Sprintf("**Latency**: %s\n", status.Latency)
 		ctx.Reply(msg)
 	} else {
 		ctx.Reply(msg)
