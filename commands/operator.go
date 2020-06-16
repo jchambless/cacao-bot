@@ -10,34 +10,28 @@ import (
 	"github.com/Tnze/go-mc/net"
 )
 
-func KickCommand(ctx framework.Context) {
-	log.Printf("Kick command was called with args %q", ctx.Args)
+func OperatorCommand(ctx framework.Context) {
+	log.Printf("Operator command was called with args %q", ctx.Args)
 
-	usage := "Usage: !mc kick <player> [reason...]"
-	if len(ctx.Args) <= 0 {
+	usage := "Usage: !mc op <player>"
+	if len(ctx.Args) <= 0 || len(ctx.Args) > 1 {
 		ctx.Reply(usage)
 		return
 	}
 
 	player := ctx.Args[0]
-	reason := make([]string, 0)
-
-	if len(ctx.Args) > 1 {
-		reason = ctx.Args[1:]
-	}
-
-	rconCommand := "/kick " + player + " " + strings.Join(reason, " ")
+	rconCommand := "/op " + player
 
 	port := strconv.Itoa(ctx.Conf.RconPort)
 	conn, err := net.DialRCON(ctx.Conf.ServerIP+":"+port, ctx.Conf.RconPassword)
 	if err != nil {
-		log.Println("Could not connect to Minecraft server,", err)
+		log.Println("Cound not connect to Minecraft server,", err)
 		return
 	}
 
 	err = conn.Cmd(rconCommand)
 	if err != nil {
-		log.Println("Command failed for player kick,", err)
+		log.Println("Command failed for assigning operator status to player,", err)
 		return
 	}
 

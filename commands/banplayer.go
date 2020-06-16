@@ -10,10 +10,10 @@ import (
 	"github.com/Tnze/go-mc/net"
 )
 
-func KickCommand(ctx framework.Context) {
-	log.Printf("Kick command was called with args %q", ctx.Args)
+func BanPlayerCommand(ctx framework.Context) {
+	log.Printf("Ban player command was called with args %q", ctx.Args)
 
-	usage := "Usage: !mc kick <player> [reason...]"
+	usage := "Usage: !mc ban <player> [reason...]"
 	if len(ctx.Args) <= 0 {
 		ctx.Reply(usage)
 		return
@@ -26,18 +26,18 @@ func KickCommand(ctx framework.Context) {
 		reason = ctx.Args[1:]
 	}
 
-	rconCommand := "/kick " + player + " " + strings.Join(reason, " ")
+	rconCommand := "/ban " + player + " " + strings.Join(reason, " ")
 
 	port := strconv.Itoa(ctx.Conf.RconPort)
 	conn, err := net.DialRCON(ctx.Conf.ServerIP+":"+port, ctx.Conf.RconPassword)
 	if err != nil {
-		log.Println("Could not connect to Minecraft server,", err)
+		log.Println("Cound not connect to Minecraft server,", err)
 		return
 	}
 
 	err = conn.Cmd(rconCommand)
 	if err != nil {
-		log.Println("Command failed for player kick,", err)
+		log.Println("Command failed to ban player,", err)
 		return
 	}
 
