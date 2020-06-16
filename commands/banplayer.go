@@ -2,12 +2,10 @@ package commands
 
 import (
 	"log"
-	"strconv"
 	"strings"
 
 	"github.com/jchambless/cacao/framework"
-
-	"github.com/Tnze/go-mc/net"
+	"github.com/jchambless/cacao/util"
 )
 
 func BanPlayerCommand(ctx framework.Context) {
@@ -28,24 +26,11 @@ func BanPlayerCommand(ctx framework.Context) {
 
 	rconCommand := "/ban " + player + " " + strings.Join(reason, " ")
 
-	port := strconv.Itoa(ctx.Conf.RconPort)
-	conn, err := net.DialRCON(ctx.Conf.ServerIP+":"+port, ctx.Conf.RconPassword)
+	resp, err := util.RconExecutor(ctx.Conf.ServerIP, ctx.Conf.RconPort, ctx.Conf.RconPassword, rconCommand)
 	if err != nil {
-		log.Println("Cound not connect to Minecraft server,", err)
 		return
 	}
 
-	err = conn.Cmd(rconCommand)
-	if err != nil {
-		log.Println("Command failed to ban player,", err)
-		return
-	}
-
-	resp, err := conn.Resp()
-	if err != nil {
-		log.Println("Command response was nil,", err)
-		return
-	}
 	log.Printf("Server response: %q", resp)
 
 	if strings.Contains(resp, "Usage") {
