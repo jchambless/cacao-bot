@@ -6,10 +6,10 @@ ADD . /app
 WORKDIR /app
 
 # Build bot binary for linux
-RUN CGO_ENABLED=0 GOOS=linux go build -o main ./...
+RUN CGO_ENABLED=0 GOOS=linux go build
 
 # Run our bot within lightweight alpine linux
 FROM alpine:latest AS production
 
 COPY --from=build /app .
-CMD ["./main"]
+CMD ["./cacao"]
