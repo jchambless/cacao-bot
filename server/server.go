@@ -14,5 +14,5 @@ func CreateRouter() *mux.Router {
 }
 
 func rootPage(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Cacao Bot")
+	fmt.Fprintf(w, "Cacao Bot")
 }
