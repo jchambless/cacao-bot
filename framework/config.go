@@ -4,8 +4,7 @@ import (
 	"log"
 	"os"
 	"strconv"
-
-	"github.com/joho/godotenv"
+	//"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -20,10 +19,10 @@ type Config struct {
 }
 
 func LoadConfig() *Config {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file", err)
-	}
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatal("Error loading .env file", err)
+	// }
 
 	conf := new(Config)
 	conf.BotToken = os.Getenv("BOT_TOKEN")
