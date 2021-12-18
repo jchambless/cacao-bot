@@ -60,7 +60,7 @@ func main() {
 
 	fmt.Println("Bot is now running. Press CTRL-C to exit.")
 
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":443", r))
 	// sc := make(chan os.Signal, 1)
 	// signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	// <-sc
