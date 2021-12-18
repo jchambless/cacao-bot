@@ -16,6 +16,7 @@ type Config struct {
 	ServerIP      string
 	RconPort      int
 	RconPassword  string
+	HttpPort      string
 }
 
 func LoadConfig() *Config {
@@ -32,6 +33,7 @@ func LoadConfig() *Config {
 	conf.ServerIP = os.Getenv("MC_SERVER")
 	conf.RconPassword = os.Getenv("MC_RCON_PASSWORD")
 	conf.DefaultStatus = os.Getenv("BOT_DEFAULT_STATUS")
+	conf.HttpPort = os.Getenv("PORT")
 
 	rcon, err := strconv.Atoi(os.Getenv("MC_RCON_PORT"))
 	if err != nil {
