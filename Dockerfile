@@ -1,5 +1,5 @@
 # Choose lightweight Go image
-FROM golang:1.13.5 as build
+FROM golang:1.22.2 as build
 
 RUN mkdir /app
 ADD . /app
