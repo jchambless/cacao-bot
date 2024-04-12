@@ -3,14 +3,14 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
+	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 
 	"github.com/jchambless/cacao/framework"
 
 	"github.com/jchambless/cacao/commands"
-
-	"github.com/jchambless/cacao/server"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -44,7 +44,7 @@ func main() {
 	botId = usr.ID
 	discord.AddHandler(commandHandler)
 	discord.AddHandler(func(discord *discordgo.Session, ready *discordgo.Ready) {
-		discord.UpdateStatus(0, conf.DefaultStatus)
+		discord.UpdateCustomStatus(conf.DefaultStatus)
 		guilds := discord.State.Guilds
 		log.Println("Ready with", len(guilds), "guilds.")
 	})
@@ -55,15 +55,11 @@ func main() {
 	}
 	defer discord.Close()
 
-	// Setup server
-	r := server.CreateRouter()
-
 	fmt.Println("Bot is now running. Press CTRL-C to exit.")
 
-	log.Fatal(http.ListenAndServe(":"+conf.HttpPort, r))
-	// sc := make(chan os.Signal, 1)
-	// signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
-	// <-sc
+	sc := make(chan os.Signal, 1)
+	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+	<-sc
 }
 
 func commandHandler(discord *discordgo.Session, message *discordgo.MessageCreate) {
