@@ -4,8 +4,9 @@ type (
 	Command func(Context)
 
 	CommandStruct struct {
-		command Command
-		help    string
+		command     Command
+		help        string
+		description string
 	}
 
 	CmdMap map[string]CommandStruct
@@ -32,8 +33,12 @@ func (command CommandStruct) GetHelp() string {
 	return command.help
 }
 
-func (handler CommandHandler) Register(name string, command Command, helpmsg string) {
-	cmdstruct := CommandStruct{command: command, help: helpmsg}
+func (command CommandStruct) GetDescription() string {
+	return command.description
+}
+
+func (handler CommandHandler) Register(name string, command Command, helpmsg string, description string) {
+	cmdstruct := CommandStruct{command: command, help: helpmsg, description: description}
 	handler.cmds[name] = cmdstruct
 	if len(name) > 1 {
 		handler.cmds[name[:1]] = cmdstruct

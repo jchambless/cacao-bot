@@ -4,7 +4,8 @@ import (
 	"log"
 	"os"
 	"strconv"
-	//"github.com/joho/godotenv"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -20,10 +21,14 @@ type Config struct {
 }
 
 func LoadConfig() *Config {
-	// err := godotenv.Load()
-	// if err != nil {
-	// 	log.Fatal("Error loading .env file", err)
-	// }
+	var isProd bool = os.Getenv("BOT_ENV") == "prod"
+	if !isProd {
+		log.Println("Running in local development mode")
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file", err)
+		}
+	}
 
 	conf := new(Config)
 	conf.BotToken = os.Getenv("BOT_TOKEN")
@@ -34,6 +39,15 @@ func LoadConfig() *Config {
 	conf.RconPassword = os.Getenv("MC_RCON_PASSWORD")
 	conf.DefaultStatus = os.Getenv("BOT_DEFAULT_STATUS")
 	conf.HttpPort = os.Getenv("PORT")
+
+	log.Println("Bot env (prod): ", isProd)
+	log.Println("Bot token: ", conf.BotToken)
+	log.Println("Bot name: ", conf.BotName)
+	log.Println("Bot version: ", conf.Version)
+	log.Println("Bot prefix: ", conf.Prefix)
+	log.Println("Bot default status: ", conf.DefaultStatus)
+	log.Println("MC server: ", conf.ServerIP)
+	log.Println("Http port: ", conf.HttpPort)
 
 	rcon, err := strconv.Atoi(os.Getenv("MC_RCON_PORT"))
 	if err != nil {
