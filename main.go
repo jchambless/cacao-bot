@@ -62,7 +62,7 @@ func main() {
 
 	srv := &http.Server{
 		Handler:      server.CreateRouter(),
-		Addr:         "127.0.0.1" + ":" + conf.HttpPort,
+		Addr:         "0.0.0.0" + ":" + conf.HttpPort,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}

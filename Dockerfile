@@ -1,5 +1,5 @@
 # Choose lightweight Go image
-FROM golang:1.22.2 as build
+FROM golang:1.22.2 AS build
 
 RUN mkdir /app
 ADD . /app
@@ -10,6 +10,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build
 
 # Run our bot within lightweight alpine linux
 FROM alpine:latest AS production
+
+EXPOSE 8080
 
 COPY --from=build /app .
 CMD ["./cacao"]
