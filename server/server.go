@@ -17,12 +17,25 @@ type spaHandler struct {
 func CreateRouter() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/api/health", healthCheck).Methods("GET")
-
+	r.HandleFunc("/api/bot/info", botInfoHandler).Methods("GET")
+	r.HandleFunc("/api/server/status", serverStatusHandler).Methods("GET")
 	// Register the SPA handler for serving static files
 	spa := &spaHandler{StaticPath: "web/build", IndexPath: "index.html"}
 	r.PathPrefix("/").Handler(spa)
 
 	return r
+}
+
+func serverStatusHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]bool{"ok": true})
+}
+
+func botInfoHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"botId": "<botId>"})
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
