@@ -3,14 +3,15 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
-	"os/signal"
+	"net/http"
 	"strings"
-	"syscall"
+	"time"
 
 	"github.com/jchambless/cacao/framework"
 
 	"github.com/jchambless/cacao/commands"
+
+	"github.com/jchambless/cacao/server"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -59,11 +60,19 @@ func main() {
 	}
 	defer discord.Close()
 
+	srv := &http.Server{
+		Handler:      server.CreateRouter(),
+		Addr:         "127.0.0.1" + ":" + conf.HttpPort,
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
+	}
+
 	fmt.Println("Bot is now running. Press CTRL-C to exit.")
 
-	sc := make(chan os.Signal, 1)
-	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
-	<-sc
+	log.Fatal(srv.ListenAndServe())
+	// sc := make(chan os.Signal, 1)
+	// signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
+	// <-sc
 }
 
 func commandHandler(discord *discordgo.Session, message *discordgo.MessageCreate) {

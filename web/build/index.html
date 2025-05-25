@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cacao Bot</title>
+
+    <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Import React and ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Optional: Add custom Tailwind configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Your custom styles -->
+    <style type="text/tailwindcss">
+        @layer components {
+            .btn {
+                @apply px-4 py-2 rounded-md bg-primary text-white font-medium hover:bg-opacity-90;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <div id="root" class="container mx-auto p-4">
+        <!-- React will mount your app here -->
+        <div class="text-center py-12">
+            <h1 class="text-4xl font-bold text-gray-800">Loading Cacao Bot...</h1>
+            <p class="mt-4 text-gray-600">Please wait while the application initializes</p>
+        </div>
+    </div>
+
+    <!-- Your React app script -->
+    <script src="app.js" type="module"></script>
+</body>
+
+</html>
