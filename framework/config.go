@@ -17,6 +17,7 @@ type Config struct {
 	RconPort      string
 	RconPassword  string
 	HttpPort      string
+	HttpHost      string
 }
 
 func LoadConfig() *Config {
@@ -29,6 +30,11 @@ func LoadConfig() *Config {
 		}
 	}
 
+	var httpPort string = os.Getenv("PORT")
+	if !isProd {
+		httpPort = os.Getenv("HTTP_PORT")
+	}
+
 	conf := new(Config)
 	conf.BotToken = os.Getenv("BOT_TOKEN")
 	conf.BotName = os.Getenv("NAME")
@@ -38,7 +44,8 @@ func LoadConfig() *Config {
 	conf.RconPassword = os.Getenv("RCON_PASSWORD")
 	conf.RconPort = os.Getenv("RCON_PORT")
 	conf.DefaultStatus = os.Getenv("DEFAULT_STATUS")
-	conf.HttpPort = os.Getenv("PORT")
+	conf.HttpPort = httpPort
+	conf.HttpHost = os.Getenv("HTTP_HOST")
 
 	log.Println("Bot env (prod): ", isProd)
 	log.Println("Bot token: ", conf.BotToken)
@@ -49,6 +56,7 @@ func LoadConfig() *Config {
 	log.Println("MC server: ", conf.ServerIP)
 	log.Println("MC Server (RCON) port: ", conf.RconPort)
 	log.Println("Http port: ", conf.HttpPort)
+	log.Println("Http host: ", conf.HttpHost)
 
 	return conf
 }
