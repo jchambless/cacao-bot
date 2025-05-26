@@ -60,9 +60,11 @@ func main() {
 	}
 	defer discord.Close()
 
+	api := server.NewBotAPI(discord)
+
 	srv := &http.Server{
-		Handler:      server.CreateRouter(),
-		Addr:         "0.0.0.0" + ":" + conf.HttpPort,
+		Handler:      api.CreateRouter(),
+		Addr:         conf.HttpHost + ":" + conf.HttpPort,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
