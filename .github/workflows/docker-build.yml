@@ -3,13 +3,13 @@ name: Build and Publish Docker Image
 on:
   push:
     branches:
-      - main
-      - develop
+      - master
+      - development
     tags:
       - 'v*'
   pull_request:
     branches:
-      - main
+      - master
 
 env:
   REGISTRY: docker.io
@@ -31,14 +31,14 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: src/web/package-lock.json
+          cache-dependency-path: web/package-lock.json
 
       - name: Install frontend dependencies
-        working-directory: src/web
+        working-directory: web
         run: npm ci
 
       - name: Build frontend
-        working-directory: src/web
+        working-directory: web
         run: npm run build
 
       - name: Set up Docker Buildx
@@ -68,8 +68,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: src
-          file: src/Dockerfile
+          context: .
+          file: Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

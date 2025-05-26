@@ -40,7 +40,7 @@ The workflow runs on:
 
 ```bash
 # Build the image locally
-docker build -t cacao-bot ./src
+docker build -t cacao-bot .
 
 # Run with docker-compose
 docker-compose up -d
@@ -60,10 +60,10 @@ Once the GitHub Actions workflow has run, you can pull the image:
 
 ```bash
 # Pull latest version
-docker pull your-username/cacao-bot:latest
+docker pull jchambless/cacao-bot:latest
 
 # Pull specific version
-docker pull your-username/cacao-bot:v1.0.0
+docker pull jchambless/cacao-bot:v1.0.0
 ```
 
 ## Environment Variables

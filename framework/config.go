@@ -3,7 +3,6 @@ package framework
 import (
 	"log"
 	"os"
-	"strconv"
 
 	"github.com/joho/godotenv"
 )
@@ -15,7 +14,7 @@ type Config struct {
 	BotToken      string
 	DefaultStatus string
 	ServerIP      string
-	RconPort      int
+	RconPort      string
 	RconPassword  string
 	HttpPort      string
 }
@@ -32,12 +31,13 @@ func LoadConfig() *Config {
 
 	conf := new(Config)
 	conf.BotToken = os.Getenv("BOT_TOKEN")
-	conf.BotName = os.Getenv("BOT_NAME")
-	conf.Version = os.Getenv("BOT_VERSION")
-	conf.Prefix = os.Getenv("BOT_PREFIX")
-	conf.ServerIP = os.Getenv("MC_SERVER")
-	conf.RconPassword = os.Getenv("MC_RCON_PASSWORD")
-	conf.DefaultStatus = os.Getenv("BOT_DEFAULT_STATUS")
+	conf.BotName = os.Getenv("NAME")
+	conf.Version = os.Getenv("VERSION")
+	conf.Prefix = os.Getenv("PREFIX")
+	conf.ServerIP = os.Getenv("RCON_HOST")
+	conf.RconPassword = os.Getenv("RCON_PASSWORD")
+	conf.RconPort = os.Getenv("RCON_PORT")
+	conf.DefaultStatus = os.Getenv("DEFAULT_STATUS")
 	conf.HttpPort = os.Getenv("PORT")
 
 	log.Println("Bot env (prod): ", isProd)
@@ -47,13 +47,8 @@ func LoadConfig() *Config {
 	log.Println("Bot prefix: ", conf.Prefix)
 	log.Println("Bot default status: ", conf.DefaultStatus)
 	log.Println("MC server: ", conf.ServerIP)
+	log.Println("MC Server (RCON) port: ", conf.RconPort)
 	log.Println("Http port: ", conf.HttpPort)
-
-	rcon, err := strconv.Atoi(os.Getenv("MC_RCON_PORT"))
-	if err != nil {
-		log.Fatal("MC Rcon port is not set")
-	}
-	conf.RconPort = rcon
 
 	return conf
 }

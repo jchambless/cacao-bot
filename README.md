@@ -2,9 +2,9 @@
 
 A Discord bot for managing Minecraft servers with a modern web interface.
 
-![Build Status](https://github.com/your-username/Cacao-Bot/workflows/Build%20and%20Publish%20Docker%20Image/badge.svg)
-![Docker Pulls](https://img.shields.io/docker/pulls/your-username/cacao-bot)
-![License](https://img.shields.io/github/license/your-username/Cacao-Bot)
+![Build Status](https://github.com/jchambless/Cacao-Bot/workflows/Build%20and%20Publish%20Docker%20Image/badge.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/jchambless/cacao-bot)
+![License](https://img.shields.io/github/license/jchambless/Cacao-Bot)
 
 ## Features
 
@@ -21,7 +21,7 @@ A Discord bot for managing Minecraft servers with a modern web interface.
 
 1. **Pull the image from Docker Hub:**
    ```bash
-   docker pull your-username/cacao-bot:latest
+   docker pull jchambless/cacao-bot:latest
    ```
 
 2. **Create a `.env` file:**
@@ -37,13 +37,13 @@ A Discord bot for managing Minecraft servers with a modern web interface.
 
 3. **Run with docker-compose:**
    ```bash
-   curl -O https://raw.githubusercontent.com/your-username/Cacao-Bot/main/docker-compose.yml
+   curl -O https://raw.githubusercontent.com/jchambless/Cacao-Bot/main/docker-compose.yml
    docker-compose up -d
    ```
 
 4. **Or run directly:**
    ```bash
-   docker run -p 8080:8080 --env-file .env your-username/cacao-bot:latest
+   docker run -p 8080:8080 --env-file .env jchambless/cacao-bot:latest
    ```
 
 ### Using the Deploy Script
@@ -52,7 +52,7 @@ For easier local development and deployment:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/Cacao-Bot.git
+git clone https://github.com/jchambless/Cacao-Bot.git
 cd Cacao-Bot
 
 # Make the script executable
@@ -103,8 +103,8 @@ The bot includes a modern React-based web interface accessible at `http://localh
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/Cacao-Bot.git
-   cd Cacao-Bot/src
+   git clone https://github.com/jchambless/Cacao-Bot.git
+   cd Cacao-Bot
    ```
 
 2. **Set up environment:**
@@ -135,19 +135,18 @@ The bot includes a modern React-based web interface accessible at `http://localh
 
 ```
 Cacao-Bot/
-├── src/
-│   ├── main.go              # Main application entry
-│   ├── commands/            # Discord command handlers
-│   ├── framework/           # Bot framework and utilities
-│   ├── server/              # HTTP server and API endpoints
-│   ├── util/                # Utility functions
-│   ├── web/                 # React frontend application
-│   ├── Dockerfile           # Multi-stage Docker build
-│   └── .env                 # Environment configuration
-├── .github/workflows/       # GitHub Actions CI/CD
-├── docker-compose.yml       # Docker Compose configuration
-├── deploy.sh               # Deployment helper script
-└── README.md               # This file
+├── main.go              # Main application entry
+├── commands/            # Discord command handlers
+├── framework/           # Bot framework and utilities
+├── server/              # HTTP server and API endpoints
+├── util/                # Utility functions
+├── web/                 # React frontend application
+├── Dockerfile           # Multi-stage Docker build
+├── .env                 # Environment configuration
+├── .github/workflows/   # GitHub Actions CI/CD
+├── docker-compose.yml   # Docker Compose configuration
+├── deploy.sh           # Deployment helper script
+└── README.md           # This file
 ```
 
 ## Configuration
@@ -196,11 +195,11 @@ Set these in your GitHub repository settings:
 ```bash
 # Build and push to Docker Hub
 ./deploy.sh build
-./deploy.sh push -u your-username
+./deploy.sh push -u jchambless
 
 # Or use Docker directly
-docker build -t your-username/cacao-bot ./src
-docker push your-username/cacao-bot
+docker build -t jchambless/cacao-bot .
+docker push jchambless/cacao-bot
 ```
 
 ## Contributing
@@ -232,9 +231,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📖 [Documentation](https://github.com/your-username/Cacao-Bot/wiki)
-- 🐛 [Report Issues](https://github.com/your-username/Cacao-Bot/issues)
-- 💬 [Discussions](https://github.com/your-username/Cacao-Bot/discussions)
+- 📖 [Documentation](https://github.com/jchambless/Cacao-Bot/wiki)
+- 🐛 [Report Issues](https://github.com/jchambless/Cacao-Bot/issues)
+- 💬 [Discussions](https://github.com/jchambless/Cacao-Bot/discussions)
 
 ## Acknowledgments
 

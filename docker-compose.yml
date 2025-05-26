@@ -3,7 +3,7 @@ version: '3.8'
 services:
   cacao-bot:
     build:
-      context: ./src
+      context: .
       dockerfile: Dockerfile
       target: production
     ports:

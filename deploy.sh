@@ -100,7 +100,7 @@ cd "$(dirname "$0")"
 case $COMMAND in
     build)
         print_status "Building Docker image: $IMAGE_NAME:$TAG"
-        docker build -t "$IMAGE_NAME:$TAG" ./src
+        docker build -t "$IMAGE_NAME:$TAG" .
         print_success "Image built successfully"
         ;;
         
@@ -108,9 +108,9 @@ case $COMMAND in
         print_status "Running container: $IMAGE_NAME:$TAG"
         
         # Check if .env file exists
-        if [[ -f "./src/.env" ]]; then
-            print_status "Loading environment from ./src/.env"
-            docker run -p 8080:8080 --env-file ./src/.env "$IMAGE_NAME:$TAG"
+        if [[ -f "./.env" ]]; then
+            print_status "Loading environment from ./.env"
+            docker run -p 8080:8080 --env-file ./.env "$IMAGE_NAME:$TAG"
         else
             print_warning "No .env file found. Running with default settings."
             print_warning "Make sure to set BOT_TOKEN environment variable."
@@ -157,7 +157,7 @@ case $COMMAND in
         print_status "Starting development environment"
         
         # Build the image first
-        docker build -t "$IMAGE_NAME:dev" ./src
+        docker build -t "$IMAGE_NAME:dev" .
         
         # Run with docker-compose if available, otherwise use docker run
         if [[ -f "docker-compose.yml" ]]; then
@@ -165,7 +165,7 @@ case $COMMAND in
             docker-compose up
         else
             print_status "Running container in development mode"
-            docker run -p 8080:8080 --env-file ./src/.env "$IMAGE_NAME:dev"
+            docker run -p 8080:8080 --env-file ./.env "$IMAGE_NAME:dev"
         fi
         ;;
         
@@ -174,11 +174,11 @@ case $COMMAND in
         
         # Test frontend build
         print_status "Testing frontend build"
-        cd src/web && npm ci && npm run build && cd ../..
+        cd web && npm ci && npm run build && cd ..
         
         # Test Docker build
         print_status "Testing Docker build"
-        docker build -t "$IMAGE_NAME:test" ./src
+        docker build -t "$IMAGE_NAME:test" .
         
         # Test container startup
         print_status "Testing container startup"
