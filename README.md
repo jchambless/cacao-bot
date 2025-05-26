@@ -2,9 +2,9 @@
 
 A Discord bot for managing Minecraft servers with a modern web interface.
 
-![Build Status](https://github.com/jchambless/Cacao-Bot/workflows/Build%20and%20Publish%20Docker%20Image/badge.svg)
+![Build Status](https://github.com/jchambless/cacao-bot/workflows/Build%20and%20Publish%20Docker%20Image/badge.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/jchambless/cacao-bot)
-![License](https://img.shields.io/github/license/jchambless/Cacao-Bot)
+![License](https://img.shields.io/github/license/jchambless/cacao-bot)
 
 ## Features
 
@@ -37,7 +37,7 @@ A Discord bot for managing Minecraft servers with a modern web interface.
 
 3. **Run with docker-compose:**
    ```bash
-   curl -O https://raw.githubusercontent.com/jchambless/Cacao-Bot/main/docker-compose.yml
+   curl -O https://raw.githubusercontent.com/jchambless/cacao-bot/main/docker-compose.yml
    docker-compose up -d
    ```
 
@@ -52,8 +52,8 @@ For easier local development and deployment:
 
 ```bash
 # Clone the repository
-git clone https://github.com/jchambless/Cacao-Bot.git
-cd Cacao-Bot
+git clone https://github.com/jchambless/cacao-bot.git
+cd cacao-bot
 
 # Make the script executable
 chmod +x deploy.sh
