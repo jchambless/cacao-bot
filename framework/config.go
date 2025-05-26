@@ -18,6 +18,7 @@ type Config struct {
 	RconPassword  string
 	HttpPort      string
 	HttpHost      string
+	AuthToken     string
 }
 
 func LoadConfig() *Config {
@@ -46,6 +47,7 @@ func LoadConfig() *Config {
 	conf.DefaultStatus = os.Getenv("DEFAULT_STATUS")
 	conf.HttpPort = httpPort
 	conf.HttpHost = os.Getenv("HTTP_HOST")
+	conf.AuthToken = os.Getenv("AUTH_TOKEN")
 
 	log.Println("Bot env (prod): ", isProd)
 	log.Println("Bot token: ", conf.BotToken)
@@ -57,6 +59,7 @@ func LoadConfig() *Config {
 	log.Println("MC Server (RCON) port: ", conf.RconPort)
 	log.Println("Http port: ", conf.HttpPort)
 	log.Println("Http host: ", conf.HttpHost)
+	log.Println("Auth token: ", conf.AuthToken)
 
 	return conf
 }

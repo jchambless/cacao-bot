@@ -35,14 +35,28 @@ func (api *BotApi) CreateRouter() *mux.Router {
 	// Bot Endpoints
 	r.HandleFunc("/api/bot", api.getBotInfo).Methods("GET")
 	r.HandleFunc("/api/guilds", api.getGuilds).Methods("GET")
+	r.HandleFunc("/api/guilds/{guildId}", api.getGuild).Methods("GET")
 	r.HandleFunc("/api/stats", api.getStats).Methods("GET")
 
 	// Register the SPA handler for serving static files
 	spa := &spaHandler{StaticPath: "web/build", IndexPath: "index.html"}
 	r.PathPrefix("/").Handler(spa)
 
+	//r.Use(authMiddleware)
+
 	return r
 }
+
+// func authMiddleware(next http.Handler) http.Handler {
+// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+// 		token := r.Header.Get("Authorization")
+// 		if token != "Bearer "+os.Getenv("AUTH_TOKEN") {
+// 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
+// 			return
+// 		}
+// 		next.ServeHTTP(w, r)
+// 	})
+// }
 
 func (api *BotApi) getBotInfo(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -76,6 +90,36 @@ func (api *BotApi) getGuilds(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(guilds)
+}
+
+func (api *BotApi) getGuild(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	guildID := vars["guildId"]
+
+	w.Header().Set("Content-Type", "application/json")
+
+	guild, err := api.session.State.Guild(guildID)
+	if err != nil {
+		http.Error(w, "Guild not found", http.StatusNotFound)
+		return
+	}
+
+	channels, err := api.session.GuildChannels(guildID)
+	if err != nil {
+		http.Error(w, "Failed to get channels", http.StatusInternalServerError)
+		return
+	}
+
+	guildInfo := map[string]interface{}{
+		"id":            guild.ID,
+		"name":          guild.Name,
+		"icon":          guild.Icon,
+		"member_count":  guild.MemberCount,
+		"channel_count": len(channels),
+		"owner_id":      guild.OwnerID,
+	}
+
+	json.NewEncoder(w).Encode(guildInfo)
 }
 
 func (api *BotApi) getStats(w http.ResponseWriter, r *http.Request) {
