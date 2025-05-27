@@ -1,14 +1,19 @@
 import React from 'react';
-import { useHealthCheck } from './hooks/useApi';
+import { useHealthCheck, useGuilds } from './hooks/useApi';
 import { StatusBadge } from './components/StatusBadge';
 
 function App() {
   const { data: healthData, isLoading, error } = useHealthCheck();
+  const { data: guildsData } = useGuilds();
 
   const getHealthStatus = () => {
     if (isLoading) return 'loading';
     if (error || !healthData?.ok) return 'offline';
     return 'online';
+  };
+
+  const getGuildsCount = () => {
+    return guildsData ? guildsData.length : '--';
   };
 
   return (
@@ -71,7 +76,7 @@ function App() {
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-sm text-gray-600">Guilds</span>
-                <span className="text-sm font-medium">--</span>
+                <span className="text-sm font-medium">{getGuildsCount()}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-gray-600">Uptime</span>

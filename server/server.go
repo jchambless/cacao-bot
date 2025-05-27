@@ -38,6 +38,8 @@ func (api *BotApi) CreateRouter() *mux.Router {
 	r.HandleFunc("/api/guilds/{guildId}", api.getGuild).Methods("GET")
 	r.HandleFunc("/api/stats", api.getStats).Methods("GET")
 
+	r.HandleFunc("/api/guilds/{guildId}/commands", api.getCommands).Methods("GET")
+
 	// Register the SPA handler for serving static files
 	spa := &spaHandler{StaticPath: "web/build", IndexPath: "index.html"}
 	r.PathPrefix("/").Handler(spa)
@@ -141,6 +143,20 @@ func (api *BotApi) getStats(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(stats)
+}
+
+func (api *BotApi) getCommands(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	guildId := vars["guildId"]
+
+	w.Header().Set("Content-Type", "application/json")
+
+	commands, err := api.session.ApplicationCommands(api.session.State.User.ID, guildId)
+	if err != nil {
+		http.Error(w, "Failed to get commands", http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(commands)
 }
 
 func serverStatusHandler(w http.ResponseWriter, r *http.Request) {

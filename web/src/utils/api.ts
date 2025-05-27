@@ -41,12 +41,27 @@ export const healthCheck = async () => {
 
 // Add more API functions as needed
 export const getBotInfo = async () => {
-  const response = await api.get('/bot/info');
+  const response = await api.get('/bot');
   return response.data;
 };
 
 export const getServerStatus = async () => {
   const response = await api.get('/server/status');
+  return response.data;
+};
+
+export const getStats = async () => {
+  const response = await api.get('/stats');
+  return response.data;
+};
+
+export const getGuilds = async () => {
+  const response = await api.get('/guilds');
+  return response.data;
+};
+
+export const getGuildInfo = async (guildId: string) => {
+  const response = await api.get(`/guilds/${guildId}`);
   return response.data;
 };
 
