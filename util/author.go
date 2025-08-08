@@ -1,9 +1,9 @@
 package util
 
 func GetAuthor() string {
-	return "yokoshirow"
+	return "jchambless"
 }
 
 func GetAuthorUrl() string {
-	return "https://yokoshirow.com"
+	return "https://jchambless.me"
 }
